@@ -1,5 +1,6 @@
 const path = require('path')
 const util = require('util')
+const fs = require('fs').promises
 const { getPolicy } = require('./utils')
 const types = require('./serverless.types.js')
 const exec = util.promisify(require('child_process').exec)
@@ -74,7 +75,10 @@ class Nextjs extends Component {
       this.context.status('Building assets')
       this.context.debug(`Running ${inputs.code.hook} in ${inputs.code.root}.`)
 
-      const options = { cwd: inputs.code.root, env: { ...process.env, ...inputs.env } }
+      const options = {
+        cwd: inputs.code.root,
+        env: { ...process.env, ...inputs.env }
+      }
       try {
         await exec(inputs.code.hook, options)
       } catch (err) {
@@ -84,6 +88,12 @@ class Nextjs extends Component {
         )
       }
     }
+
+    // Copy the `routes-manifest.json` to the serverless directory.
+    await fs.copyFile(
+      `${inputs.code.src}/../routes-manifest.json`,
+      `${inputs.code.src}/routes-manifest.json`
+    )
 
     // S3 Upload
 

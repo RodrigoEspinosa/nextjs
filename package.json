@@ -1,13 +1,18 @@
 {
-  "name": "@serverless/nextjs",
-  "version": "0.0.0",
+  "name": "@rec/serverless-nextjs",
+  "version": "0.1.1",
   "description": "Deploy Serverless Next.js apps with Serverless Components",
   "main": "serverless.js",
   "author": "REC <yo@rec.cool>",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "nextjs",
+    "serverless",
+    "serverless-components"
+  ],
   "dependencies": {
     "@serverless/aws-api-gateway": "^1.2.0",
     "@serverless/aws-cloudfront": "^5.0.0",
