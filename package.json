@@ -1,6 +1,6 @@
 {
   "name": "@rec/serverless-nextjs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Deploy Serverless Next.js apps with Serverless Components",
   "main": "serverless.js",
   "author": "REC <yo@rec.cool>",
