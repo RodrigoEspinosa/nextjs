@@ -182,7 +182,7 @@ class Nextjs extends Component {
           'static/*': {
             ttl: 86400
           },
-          '*': {
+          '*.*': {
             ttl: 86400
           }
         }
