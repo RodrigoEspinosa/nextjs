@@ -12,7 +12,7 @@ const getDotNextDirectory = (inputs) =>
   path.normalize(path.join(getServerlessDirectory(inputs), '..'))
 
 const getStaticDirectory = (inputs) =>
-  path.normalize(path.join(getDotNextDirectory(inputs), '..', 'static'))
+  path.normalize(path.join(getDotNextDirectory(inputs), '..', 'public'))
 
 /**
  * Nextjs
@@ -101,16 +101,13 @@ class Nextjs extends Component {
 
     const dirToUploadPath = inputs.code.src || inputs.code.root
 
-    // Uploads `/static` directory to S3
+    // Uploads `/public` directory to S3
     const staticDirToUploadPath = getStaticDirectory(inputs)
     this.context.debug(
-      `Uploading website static files from ${dirToUploadPath} to bucket ${bucketOutputs.name}.`
+      `Uploading website public files from ${dirToUploadPath} to bucket ${bucketOutputs.name}.`
     )
 
-    await websiteBucket.upload({
-      dir: staticDirToUploadPath,
-      keyPrefix: 'static'
-    })
+    await websiteBucket.upload({ dir: staticDirToUploadPath })
 
     // Uploads `/.next/static` directory to S3
     const dotNextDirectory = getDotNextDirectory(inputs)
@@ -150,7 +147,7 @@ class Nextjs extends Component {
       description: inputs.description || 'A function for the Next.js Component',
       memory: inputs.memory || 896,
       timeout: inputs.timeout || 10,
-      runtime: 'nodejs10.x',
+      runtime: 'nodejs12.x',
       code: inputs.code.src || inputs.code.root,
 
       // role: roleOutputs,
@@ -183,6 +180,9 @@ class Nextjs extends Component {
             ttl: 86400
           },
           'static/*': {
+            ttl: 86400
+          },
+          '*': {
             ttl: 86400
           }
         }

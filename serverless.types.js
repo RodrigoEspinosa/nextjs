@@ -10,8 +10,8 @@ module.exports = {
           required: true,
           description:
             'The directory which contains your backend code, declared by an index.js file',
-          defaultRuntime: 'nodejs10.x',
-          runtimes: ['nodejs10.x', 'nodejs8.10']
+          defaultRuntime: 'nodejs12.x',
+          runtimes: ['nodejs12.x', 'nodejs10.x', 'nodejs8.10']
         },
         {
           name: 'region',
